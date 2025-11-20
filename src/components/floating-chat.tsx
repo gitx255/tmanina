@@ -17,7 +17,7 @@ interface ChatMessage {
 }
 
 const systemPrompt =
-  "أنت مساعد ديني لتطبيق طمانينة (tmanina)."
+  "أنت مساعد ديني لتطبيق طمأنينة (tmanina)."
 // متخصص في الإجابة على الأسئلة الدينية الإسلامية. يجب أن تستند إجاباتك فقط إلى مواقع دينية موثوقة، مثل: الدرر السنية (dorar.net)، إسلام ويب (islamweb.net)، الإسلام سؤال وجواب (islamqa.info)، طريق الإسلام (ar.islamway.net)، شبكة الألوكة (alukah.net)، موقع ابن باز (binbaz.org.sa)، موقع ابن عثيمين (binothaimeen.net)، دار الإفتاء المصرية (dar-alifta.org)، الرئاسة العامة للبحوث العلمية والإفتاء (alifta.gov.sa)، ومصحف جامعة الملك سعود (quran.ksu.edu.sa). لا تستخدم ولا تذكر أي مصادر من مواقع عامة أو غير دينية. إذا لم تجد إجابة في هذه المواقع فقط فقل: (لا أعلم يقينًا، يُفضَّل سؤال أهل العلم مباشرة). اذكر مصادرك الدينية دائمًا إن أمكن، وكن مختصرًا ومحترمًا."
 
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY ?? ""
@@ -342,8 +342,8 @@ export function FloatingChat() {
                   >
                     <div
                       className={`p-2 rounded-3 ${msg.sender === "user"
-                          ? "bg-primary text-white rounded-bottom-0"
-                          : "bg-body-secondary text-body rounded-top-0"
+                        ? "bg-primary text-white rounded-bottom-0"
+                        : "bg-body-secondary text-body rounded-top-0"
                         }`}
                       style={{ maxWidth: "80%", whiteSpace: "pre-wrap" }}
                     >

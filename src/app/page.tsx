@@ -28,7 +28,7 @@ export default function Home() {
           <div className="mb-4">
             <i className="fas fa-mosque text-white" style={{ fontSize: "4rem" }}></i>
           </div>
-          <h1 className="display-1 fw-bold text-white mb-2" style={{ fontFamily: 'var(--font-arabic)' }}>طمانينة</h1>
+          <h1 className="display-1 fw-bold text-white mb-2" style={{ fontFamily: 'var(--font-arabic)' }}>طمأنينة</h1>
           <p className="text-white-50 fs-4"> رفيقك في رحلة التقرب إلى الله
 
           </p>
@@ -204,13 +204,13 @@ export default function Home() {
                   <div className="card border-0 shadow-lg rounded-4 overflow-hidden home-hero-card">
                     <div className="home-hero-gradient p-4 p-md-5 text-white">
                       <h1 className="h3 h-md-2 mb-2 fw-bold">
-                        مرحباً بك في تطبيق طمانينة
+                        مرحباً بك في تطبيق طمأنينة
                       </h1>
                       <p className="mb-0 mb-md-1">
                         تقرّب إلى الله بالأذكار والعبادات، في مكان واحد
                         .
                         <br></br>
-                        مع مساعد طمانينة الذكي للرد علي جميع اسئلتك الدينية
+                        مع مساعد طمأنينة الذكي للرد علي جميع اسئلتك الدينية
                         .
                       </p>
                     </div>
