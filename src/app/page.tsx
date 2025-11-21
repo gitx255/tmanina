@@ -10,14 +10,16 @@ import { PrayerTimes } from "@/components/prayer-times"
 import { TasbihCircle } from "@/components/tasbih-circle"
 import { About } from "@/components/about"
 import { AdhkarList } from "@/components/adhkar-list"
+import { SharePage } from "@/components/share-page"
 
 export default function Home() {
   const [showSplash, setShowSplash] = React.useState(true)
+  const [activeTab, setActiveTab] = React.useState("home")
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false)
-    }, 3000) // 3 seconds as required
+    }, 2000) // 2 seconds as required
     return () => clearTimeout(timer)
   }, [])
 
@@ -30,7 +32,6 @@ export default function Home() {
           </div>
           <h1 className="display-1 fw-bold text-white mb-2" style={{ fontFamily: 'var(--font-arabic)' }}>طمأنينة</h1>
           <p className="text-white-50 fs-4"> رفيقك في رحلة التقرب إلى الله
-
           </p>
         </div>
       </div>
@@ -98,264 +99,241 @@ export default function Home() {
 
           <ul className="nav nav-pills nav-fill bg-body shadow-sm p-2 gap-1 flex-nowrap main-tabs mb-4" id="mainTabs" role="tablist">
             <li className="nav-item" role="presentation">
-              <button className="nav-link active" id="home-tab" data-bs-toggle="pill" data-bs-target="#home" type="button" role="tab">
-                <i className="fas fa-home ms-2"></i>
+              <button
+                className={`nav-link rounded-pill d-flex align-items-center justify-content-center gap-2 ${activeTab === "home" ? "active" : ""}`}
+                onClick={() => setActiveTab("home")}
+                type="button"
+              >
+                <i className="fas fa-home"></i>
                 <span className="d-none d-sm-inline">الرئيسية</span>
               </button>
             </li>
+            <li className="nav-item" role="presentation">
+              <button
+                className={`nav-link rounded-pill d-flex align-items-center justify-content-center gap-2 ${activeTab === "adhkar-list" ? "active" : ""}`}
+                onClick={() => setActiveTab("adhkar-list")}
+                type="button"
+              >
+                <i className="fas fa-book-open"></i>
+                <span className="d-none d-sm-inline">الأذكار</span>
+              </button>
+            </li>
 
             <li className="nav-item" role="presentation">
-              <button className="nav-link" id="prayer-tab" data-bs-toggle="pill" data-bs-target="#prayer" type="button" role="tab">
-                <i className="fas fa-mosque ms-2"></i>
+              <button
+                className={`nav-link rounded-pill d-flex align-items-center justify-content-center gap-2 ${activeTab === "prayer-times" ? "active" : ""}`}
+                onClick={() => setActiveTab("prayer-times")}
+                type="button"
+              >
+                <i className="fas fa-clock"></i>
                 <span className="d-none d-sm-inline">مواقيت الصلاة</span>
               </button>
             </li>
-
-            <li className="nav-item d-none" role="presentation">
-              <button className="nav-link" id="adhkar-tab" data-bs-toggle="pill" data-bs-target="#adhkar" type="button" role="tab">
-                تسبيح
-              </button>
-            </li>
-
             <li className="nav-item" role="presentation">
-              <button className="nav-link" id="adhkar-list-tab" data-bs-toggle="pill" data-bs-target="#adhkar-list" type="button" role="tab">
-                <span className="ms-2" style={{ fontSize: '1.2em' }}>🤲</span>
-                <span className="d-none d-sm-inline">الاذكار</span>
-              </button>
-            </li>
-
-            <li className="nav-item" role="presentation">
-              <button className="nav-link" id="calendar-tab" data-bs-toggle="pill" type="button" data-bs-target="#calendar" role="tab">
-                <i className="fas fa-calendar ms-2"></i>
+              <button
+                className={`nav-link rounded-pill d-flex align-items-center justify-content-center gap-2 ${activeTab === "calendar" ? "active" : ""}`}
+                onClick={() => setActiveTab("calendar")}
+                type="button"
+              >
+                <i className="fas fa-calendar-alt"></i>
                 <span className="d-none d-sm-inline">التقويم</span>
               </button>
             </li>
 
-            <li className="nav-item d-none" role="presentation">
-              <button className="nav-link" id="dashboard-tab" data-bs-toggle="pill" type="button" data-bs-target="#dashboard" role="tab">
-                لوحة التحكم
+            {/* Share Tab */}
+            <li className="nav-item" role="presentation">
+              <button
+                className={`nav-link rounded-pill d-flex align-items-center justify-content-center gap-2 ${activeTab === "share" ? "active" : ""}`}
+                onClick={() => setActiveTab("share")}
+                type="button"
+              >
+                <i className="fas fa-share-nodes"></i>
+                <span className="d-none d-sm-inline">نشر</span>
               </button>
             </li>
 
-            <li className="nav-item d-none" role="presentation">
-              <button className="nav-link" id="about-tab" data-bs-toggle="pill" data-bs-target="#about" type="button" role="tab">
-                عن التطبيق
-              </button>
-            </li>
-
+            {/* Dropdown for other items */}
             <li className="nav-item dropdown" role="presentation">
-
-
-              <button className="nav-link dropdown-toggle" id="other-dropdown" data-bs-toggle="dropdown" aria-expanded="false" type="button">
-                <i className="fas fa-ellipsis-h ms-2"></i>
-                <span className="d-none d-sm-inline">أخرى</span>
-              </button>
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="other-dropdown">
+              <a className="nav-link dropdown-toggle rounded-pill d-flex align-items-center justify-content-center gap-2" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                <i className="fas fa-bars"></i>
+                <span className="d-none d-sm-inline">المزيد</span>
+              </a>
+              <ul className="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-2">
                 <li>
-                  <button className="dropdown-item" type="button" onClick={(e) => {
-                    e.preventDefault()
-                    const dropdown = document.getElementById('other-dropdown')
-                    const btn = document.getElementById('dashboard-tab') as HTMLButtonElement
-                    if (btn) {
-                      btn.click()
-                      // Close dropdown
-                      if (dropdown) {
-                        const bsDropdown = (window as any).bootstrap?.Dropdown?.getInstance(dropdown)
-                        if (bsDropdown) bsDropdown.hide()
-                      }
-                      // Scroll to top
-                      window.scrollTo({ top: 0, behavior: 'smooth' })
-                    }
-                  }}>
-                    <i className="fas fa-chart-line ms-2"></i>
-                    لوحة التحكم
+                  <button
+                    className={`dropdown-item rounded-3 d-flex align-items-center gap-2 py-2 mb-1 ${activeTab === "dashboard" ? "active" : ""}`}
+                    onClick={() => setActiveTab("dashboard")}
+                  >
+                    <i className="fas fa-chart-pie w-25 text-center"></i>
+                    <span>الإحصائيات</span>
                   </button>
                 </li>
                 <li>
-                  <button className="dropdown-item" type="button" onClick={(e) => {
-                    e.preventDefault()
-                    const dropdown = document.getElementById('other-dropdown')
-                    const btn = document.getElementById('about-tab') as HTMLButtonElement
-                    if (btn) {
-                      btn.click()
-                      // Close dropdown
-                      if (dropdown) {
-                        const bsDropdown = (window as any).bootstrap?.Dropdown?.getInstance(dropdown)
-                        if (bsDropdown) bsDropdown.hide()
-                      }
-                      // Scroll to top
-                      window.scrollTo({ top: 0, behavior: 'smooth' })
-                    }
-                  }}>
-                    <i className="fas fa-info-circle ms-2"></i>
-                    عن التطبيق
+                  <button
+                    className={`dropdown-item rounded-3 d-flex align-items-center gap-2 py-2 ${activeTab === "about" ? "active" : ""}`}
+                    onClick={() => setActiveTab("about")}
+                  >
+                    <i className="fas fa-info-circle w-25 text-center"></i>
+                    <span>عن التطبيق</span>
                   </button>
                 </li>
               </ul>
             </li>
           </ul>
 
-          {/* Tabs content */}
-          <div className="tab-content" id="mainTabsContent">
-            {/* Home tab */}
-            <div className="tab-pane fade show active" id="home" role="tabpanel">
-              <div className="row g-4">
-                <div className="col-12">
-                  <div className="card border-0 shadow-lg rounded-4 overflow-hidden home-hero-card">
-                    <div className="home-hero-gradient p-4 p-md-5 text-white">
-                      <h1 className="h3 h-md-2 mb-2 fw-bold">
-                        مرحباً بك في تطبيق طمأنينة
-                      </h1>
-                      <p className="mb-0 mb-md-1">
-                        تقرّب إلى الله بالأذكار والعبادات، في مكان واحد
-                        .
-                        <br></br>
-                        مع مساعد طمأنينة الذكي للرد علي جميع اسئلتك الدينية.
-                      </p>
+          <div className="tab-content">
+            {activeTab === "home" && (
+              <div className="animate__animated animate__fadeIn">
+                <div className="row g-4">
+                  <div className="col-12">
+                    <div className="card border-0 shadow-lg rounded-4 overflow-hidden home-hero-card">
+                      <div className="home-hero-gradient p-4 p-md-5 text-white">
+                        <h1 className="h3 h-md-2 mb-2 fw-bold">
+                          مرحباً بك في تطبيق طمأنينة
+                        </h1>
+                        <p className="mb-0 mb-md-1">
+                          تقرّب إلى الله بالأذكار والعبادات، في مكان واحد
+                          .
+                          <br></br>
+                          مع مساعد طمأنينة الذكي للرد علي جميع اسئلتك الدينية.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Navigation Buttons - 4 buttons */}
-                <div className="col-12">
-                  <div className="row g-3 g-md-4">
-                    {/* ورد الصباح */}
-                    <div className="col-6 col-md-3">
-                      <button
-                        className="btn btn-lg w-100 h-100 p-4 rounded-4 border-0 shadow-sm bg-body-secondary position-relative overflow-hidden nav-card-btn"
-                        onClick={() => {
-                          // First activate adhkar-list tab
-                          const adhkarListTab = document.getElementById('adhkar-list-tab') as HTMLButtonElement
-                          if (adhkarListTab) adhkarListTab.click()
+                  {/* Navigation Buttons */}
+                  <div className="col-12">
+                    <div className="row g-3 g-md-4">
+                      {/* ورد الصباح */}
+                      <div className="col-6 col-md-3">
+                        <button
+                          className="btn btn-lg w-100 h-100 p-4 rounded-4 border-0 shadow-sm bg-body-secondary position-relative overflow-hidden nav-card-btn"
+                          onClick={() => {
+                            setActiveTab("adhkar-list")
+                            // Small delay to allow tab switch then click card
+                            setTimeout(() => {
+                              const morningCard = document.querySelector('.adhkar-card-morning') as HTMLElement
+                              if (morningCard) {
+                                morningCard.click()
+                                window.scrollTo({ top: 0, behavior: 'smooth' })
+                              }
+                            }, 100)
+                          }}
+                          type="button"
+                        >
+                          <div className="text-center">
+                            <i className="fas fa-sun fs-1 gradient-text mb-3 d-block"></i>
+                            <h5 className="fw-bold mb-0">ورد الصباح</h5>
+                          </div>
+                        </button>
+                      </div>
 
-                          // Then click morning adhkar card
-                          setTimeout(() => {
-                            const morningCard = document.querySelector('.adhkar-card-morning') as HTMLElement
-                            if (morningCard) {
-                              morningCard.click()
-                              window.scrollTo({ top: 0, behavior: 'smooth' })
-                            }
-                          }, 150)
-                        }}
-                        type="button"
-                        style={{ transition: 'all 0.3s ease' }}
-                      >
-                        <div className="text-center">
-                          <i className="fas fa-sun fs-1 gradient-text mb-3 d-block"></i>
-                          <h5 className="fw-bold mb-0">ورد الصباح</h5>
-                        </div>
-                      </button>
-                    </div>
+                      {/* ورد المساء */}
+                      <div className="col-6 col-md-3">
+                        <button
+                          className="btn btn-lg w-100 h-100 p-4 rounded-4 border-0 shadow-sm bg-body-secondary position-relative overflow-hidden nav-card-btn"
+                          onClick={() => {
+                            setActiveTab("adhkar-list")
+                            setTimeout(() => {
+                              const eveningCard = document.querySelector('.adhkar-card-evening') as HTMLElement
+                              if (eveningCard) {
+                                eveningCard.click()
+                                window.scrollTo({ top: 0, behavior: 'smooth' })
+                              }
+                            }, 100)
+                          }}
+                          type="button"
+                        >
+                          <div className="text-center">
+                            <i className="fas fa-moon fs-1 gradient-text mb-3 d-block"></i>
+                            <h5 className="fw-bold mb-0">ورد المساء</h5>
+                          </div>
+                        </button>
+                      </div>
 
-                    {/* ورد المساء */}
-                    <div className="col-6 col-md-3">
-                      <button
-                        className="btn btn-lg w-100 h-100 p-4 rounded-4 border-0 shadow-sm bg-body-secondary position-relative overflow-hidden nav-card-btn"
-                        onClick={() => {
-                          // First activate adhkar-list tab
-                          const adhkarListTab = document.getElementById('adhkar-list-tab') as HTMLButtonElement
-                          if (adhkarListTab) adhkarListTab.click()
+                      {/* تسبيح */}
+                      <div className="col-6 col-md-3">
+                        <button
+                          className="btn btn-lg w-100 h-100 p-4 rounded-4 border-0 shadow-sm bg-body-secondary position-relative overflow-hidden nav-card-btn"
+                          onClick={() => setActiveTab("tasbih")}
+                          type="button"
+                        >
+                          <div className="text-center">
+                            <span className="d-block mb-3" style={{ fontSize: '3rem' }}>📿</span>
+                            <h5 className="fw-bold mb-0">تسبيح</h5>
+                          </div>
+                        </button>
+                      </div>
 
-                          // Then click evening adhkar card
-                          setTimeout(() => {
-                            const eveningCard = document.querySelector('.adhkar-card-evening') as HTMLElement
-                            if (eveningCard) {
-                              eveningCard.click()
-                              window.scrollTo({ top: 0, behavior: 'smooth' })
-                            }
-                          }, 150)
-                        }}
-                        type="button"
-                        style={{ transition: 'all 0.3s ease' }}
-                      >
-                        <div className="text-center">
-                          <i className="fas fa-moon fs-1 gradient-text mb-3 d-block"></i>
-                          <h5 className="fw-bold mb-0">ورد المساء</h5>
-                        </div>
-                      </button>
-                    </div>
-
-                    {/* تسبيح */}
-                    <div className="col-6 col-md-3">
-                      <button
-                        className="btn btn-lg w-100 h-100 p-4 rounded-4 border-0 shadow-sm bg-body-secondary position-relative overflow-hidden nav-card-btn"
-                        onClick={() => {
-                          const adhkarTab = document.getElementById('adhkar-tab') as HTMLButtonElement
-                          if (adhkarTab) {
-                            adhkarTab.click()
-                            window.scrollTo({ top: 0, behavior: 'smooth' })
-                          }
-                        }}
-                        type="button"
-                        style={{ transition: 'all 0.3s ease' }}
-                      >
-                        <div className="text-center">
-                          <span className="d-block mb-3" style={{ fontSize: '3rem' }}>📿</span>
-                          <h5 className="fw-bold mb-0">تسبيح</h5>
-                        </div>
-                      </button>
-                    </div>
-
-                    {/* قريباً - Soon */}
-                    <div className="col-6 col-md-3">
-                      <button
-                        className="btn btn-lg w-100 h-100 p-4 rounded-4 border-0 shadow-sm bg-body-secondary position-relative overflow-hidden nav-card-btn disabled"
-                        type="button"
-                        style={{ transition: 'all 0.3s ease', opacity: 0.7, cursor: 'default' }}
-                      >
-                        <div className="text-center">
-                          <i className="fas fa-hourglass-half fs-1 text-secondary mb-3 d-block"></i>
-                          <h5 className="fw-bold mb-0 text-secondary">قريباً</h5>
-                        </div>
-                      </button>
+                      {/* قريباً */}
+                      <div className="col-6 col-md-3">
+                        <button
+                          className="btn btn-lg w-100 h-100 p-4 rounded-4 border-0 shadow-sm bg-body-secondary position-relative overflow-hidden nav-card-btn disabled"
+                          type="button"
+                          style={{ opacity: 0.7, cursor: 'default' }}
+                        >
+                          <div className="text-center">
+                            <i className="fas fa-hourglass-half fs-1 text-secondary mb-3 d-block"></i>
+                            <h5 className="fw-bold mb-0 text-secondary">قريباً</h5>
+                          </div>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Tasbih Circle */}
-                <div className="col-12">
-                  <TasbihCircle />
-                </div>
-              </div>
-            </div>
-
-            {/* Prayer times */}
-            <div className="tab-pane fade" id="prayer" role="tabpanel">
-              <div className="card border-0 shadow-sm rounded-4">
-                <div className="card-body p-3 p-md-4">
-                  <PrayerTimes country="EG" city="Cairo" />
+                  {/* Tasbih Circle Preview */}
+                  <div className="col-12">
+                    <TasbihCircle />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            {/* Dhikr counter */}
-            <div className="tab-pane fade" id="adhkar" role="tabpanel">
-              <div className="card border-0 shadow-sm rounded-4">
-                <div className="card-body p-3 p-md-4">
-                  <DhikrCounter />
+            {activeTab === "adhkar-list" && (
+              <div className="animate__animated animate__fadeIn">
+                <AdhkarList />
+              </div>
+            )}
+
+            {activeTab === "tasbih" && (
+              <div className="animate__animated animate__fadeIn">
+                <div className="row justify-content-center">
+                  <div className="col-12 col-lg-8">
+                    <DhikrCounter />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            {/* Adhkar List - الأذكار */}
-            <div className="tab-pane fade" id="adhkar-list" role="tabpanel">
-              <AdhkarList />
-            </div>
+            {activeTab === "prayer-times" && (
+              <div className="animate__animated animate__fadeIn">
+                <PrayerTimes country="EG" city="Cairo" />
+              </div>
+            )}
 
-            {/* Islamic calendar */}
-            <div className="tab-pane fade" id="calendar" role="tabpanel">
-              <IslamicCalendar />
-            </div>
+            {activeTab === "calendar" && (
+              <div className="animate__animated animate__fadeIn">
+                <IslamicCalendar />
+              </div>
+            )}
 
-            {/* Full dashboard */}
-            <div className="tab-pane fade" id="dashboard" role="tabpanel">
-              <Dashboard />
-            </div>
+            {activeTab === "share" && (
+              <div className="animate__animated animate__fadeIn">
+                <SharePage />
+              </div>
+            )}
 
-            {/* About - عن التطبيق */}
-            <div className="tab-pane fade" id="about" role="tabpanel">
-              <About />
-            </div>
+            {activeTab === "dashboard" && (
+              <div className="animate__animated animate__fadeIn">
+                <Dashboard />
+              </div>
+            )}
+
+            {activeTab === "about" && (
+              <div className="animate__animated animate__fadeIn">
+                <About />
+              </div>
+            )}
           </div>
         </div>
       </main>

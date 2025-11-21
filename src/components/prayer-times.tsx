@@ -251,17 +251,19 @@ export function PrayerTimes({ country: _country, city: _city }: PrayerTimesProps
                     {isClient ? (
                       <>
                         <div className="display-4 fw-bold font-monospace">
-                          {currentTime.toLocaleTimeString("ar-SA", {
+                          {currentTime.toLocaleTimeString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                             second: "2-digit",
+                            hour12: true,
                           })}
                         </div>
                         <p className="mb-0 small">
-                          {currentTime.toLocaleDateString("ar-SA", {
+                          {currentTime.toLocaleDateString("ar-SA-u-ca-gregory", {
                             weekday: "long",
                             day: "numeric",
                             month: "long",
+                            year: "numeric",
                           })}
                         </p>
                       </>

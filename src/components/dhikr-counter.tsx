@@ -63,9 +63,10 @@ export function DhikrCounter() {
   const [isPressed, setIsPressed] = React.useState(false)
   const [vibrationEnabled, setVibrationEnabled] = React.useState(true)
 
-  const remaining = target - count
+  const isInfinite = target === Number.MAX_SAFE_INTEGER
+  const remaining = isInfinite ? "∞" : target - count
   const totalForCurrent = totals[selectedId] ?? 0
-  const progress = Math.min((count / target) * 100, 100)
+  const progress = isInfinite ? 100 : Math.min((count / target) * 100, 100)
 
   // Load vibration preference from localStorage
   React.useEffect(() => {
@@ -242,7 +243,7 @@ export function DhikrCounter() {
               >
                 <span className="display-4 fw-bold gradient-text font-monospace">{count}</span>
                 <span className="position-absolute bottom-0 start-50 translate-middle-x small text-body-secondary mb-2">
-                  الهدف: {target}
+                  الهدف: {isInfinite ? <i className="fas fa-infinity"></i> : target}
                 </span>
               </div>
             </div>
@@ -251,7 +252,7 @@ export function DhikrCounter() {
             <div className="w-100" style={{ maxWidth: "480px" }}>
               <div className="d-flex justify-content-between small text-body-secondary mb-2">
                 <span>0</span>
-                <span>{target}</span>
+                <span>{isInfinite ? <i className="fas fa-infinity"></i> : target}</span>
               </div>
 
               <div className="progress" style={{ height: "10px" }}>
@@ -276,15 +277,26 @@ export function DhikrCounter() {
                   {num}
                 </button>
               ))}
+              <button
+                type="button"
+                onClick={() => handleQuickTargetChange(Number.MAX_SAFE_INTEGER)}
+                className={`btn btn-sm rounded-pill px-3 ${target === Number.MAX_SAFE_INTEGER ? "gradient-bg text-white" : "btn-outline-primary"
+                  }`}
+                title="عداد مفتوح"
+              >
+                <i className="fas fa-infinity"></i>
+              </button>
             </div>
 
             {/* إعادة تعيين */}
             <button
               type="button"
               onClick={handleResetCurrent}
-              className="btn btn-link text-body-secondary text-decoration-none small"
+              className="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center card-hover"
+              style={{ width: '50px', height: '50px', transition: 'all 0.3s ease' }}
+              title="إعادة تعيين"
             >
-              <i className="fas fa-rotate-right me-1"></i> إعادة تعيين عداد هذا الذكر
+              <i className="fas fa-rotate-right" style={{ fontSize: '1.5rem' }}></i>
             </button>
 
           </div>
